@@ -5,18 +5,17 @@ date: "September 15, 2015"
 output: html_document
 ---
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+**COMPUTER PLATFORM:**
 
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+* Operating Platform: Windows 7 Professional, Service Pack 1  
+* Microprocessor: Intel Core i3-2100 CPU @ 3.10 GHz  
+* RAM: 8.0 GB  
+* System: 64-bit Operating System  
 
-```{r}
-summary(cars)
-```
+**R PLATFORM**
 
-You can also embed plots, for example:
+* R version 3.2.2 (2015-08-14) -- "Fire Safety"  
+* Copyright (C) 2015 The R Foundation for Statistical Computing  
+* Platform: x86_64-w64-mingw32/x64 (64-bit)  
 
-```{r, echo=FALSE}
-plot(cars)
-```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
