@@ -17,5 +17,6 @@ output: html_document
 * R version 3.2.2 (2015-08-14) -- "Fire Safety"  
 * Copyright (C) 2015 The R Foundation for Statistical Computing  
 * Platform: x86_64-w64-mingw32/x64 (64-bit)  
+* R Studio: Version 0.99.467  
 
 
