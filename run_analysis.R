@@ -11,7 +11,7 @@
 # file is located on the internet at the following location.
 # https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip
 
-# Clean up workspace
+# Clear your workspace from active variables
 rm(list=ls())
 
 # Initialize user controlled variables
@@ -19,7 +19,7 @@ user_folder <- "data"
 
 # Initialize critical program variables
 file_name_str <- "getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip"
-local_folder_name <- paste(user_folder, "/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset", sep="")
+local_folder_name <- paste(user_folder, "/getdata-projectfiles-UCI-HAR-Dataset", sep="")
 local_file_name <- paste(user_folder, "/", file_name_str, sep="")
 
 # Test for existence of user_folder.  Download data if data is missiing.
@@ -42,35 +42,78 @@ if (!file.exists(user_folder)) {
     unzip (local_file_name, exdir=local_folder_name)
 }
 
-# Set new working directory
+# Save current working directory for return at end of program
 home_wd <- getwd()
+
+# Set new working directory
 new_wd <- paste(local_folder_name, "/", "UCI HAR Dataset", sep="")
 setwd(new_wd)
 
-# Read in the data from files
-features     = read.table('./features.txt',header=FALSE); #imports features.txt
-activityType = read.table('./activity_labels.txt',header=FALSE); #imports activity_labels.txt
+# Read data from downloaded files
+features = read.table('./features.txt', header=FALSE)
+activity_labels = read.table('./activity_labels.txt', header=FALSE)
 
-subjectTrain = read.table('./train/subject_train.txt',header=FALSE); #imports subject_train.txt
-xTrain       = read.table('./train/x_train.txt',header=FALSE); #imports x_train.txt
-yTrain       = read.table('./train/y_train.txt',header=FALSE); #imports y_train.txt
+subject_test = read.table('./test/subject_test.txt', header=FALSE)
+x_test = read.table('./test/x_test.txt', header=FALSE)
+y_test = read.table('./test/y_test.txt', header=FALSE)
 
-subjectTest = read.table('./test/subject_test.txt',header=FALSE); #imports subject_test.txt
-xTest       = read.table('./test/x_test.txt',header=FALSE); #imports x_test.txt
-yTest       = read.table('./test/y_test.txt',header=FALSE); #imports y_test.txt
-
-
-# Assigin column names to the data imported above
-colnames(activityType)  = c('activityId','activityType');
-colnames(subjectTrain)  = "subjectId";
-colnames(xTrain)        = features[,2]; 
-colnames(yTrain)        = "activityId";
-
-
-
-
-
+subject_train = read.table('./train/subject_train.txt', header=FALSE)
+x_train = read.table('./train/x_train.txt', header=FALSE)
+y_train = read.table('./train/y_train.txt', header=FALSE)
 
 # Set working directory back to original setting
 setwd(home_wd)
+
+# Assign column names to the new R tables
+colnames(features) = c('feature_id','feature_type')
+colnames(activity_labels) = c('activity_id','activity_type')
+
+colnames(subject_test) = "subject_id"
+colnames(x_test) = features[,2] 
+colnames(y_test) = "activity_id"
+
+colnames(subject_train) = "subject_id"
+colnames(x_train) = features[,2] 
+colnames(y_train) = "activity_id"
+
+# Create new 'test' and 'training' tables by binding the data 
+# from our read files (use cbind - column bind)
+test_data = cbind(subject_test, y_test, x_test)
+train_data = cbind(subject_train, y_train, x_train)
+
+# Concatenate the new 'test' and 'training' tables above into 
+# a single table (use rbind - rowbind)
+full_data = rbind(test_data, train_data)
+
+# Merge the 'full_data' set with the 'activity_labels' table
+# to include descriptive activity names (equivalent to LEFT OUTER JOIN)
+final_data = merge(full_data, activity_labels, by='activity_id', all.x=TRUE)
+
+# ** Decided not to use - tough to dynamically get column names if altered **
+# Fix the column names so that they are descriptive and user-friendly
+# The 'data.table' library is required for execution of this program
+#test <- require(data.table)
+#if (!test) {
+#  install.packages("data.table")
+#  require(data.table)
+#}
+#names <- names(final_data)
+#names <- gsub('[()]', '', names) # Remove the parenthesis and dashes
+#setnames(final_data, names)
+
+# Extract sub-set of data such that we extract only the measurements
+# on the mean and standard deviation for each measurement
+sub_data = final_data[ grepl("subject|activity|mean|std", names(final_data)) ]
+
+# Output tidy data files to CSV files
+write.csv(full_data, file="full_data.csv", row.names=FALSE)
+write.csv(sub_data, file="sub_data.csv", row.names=FALSE)
+
+# Output tidy data files to TXT files (as instructed by professor)
+write.table(full_data, file="full_data.txt", row.names=FALSE)
+write.table(sub_data, file="sub_data.txt", row.names=FALSE)
+
+# Clear your workspace from active variables
+# This step is optional yet it clears memory intensive information
+#rm(list=ls())
 
