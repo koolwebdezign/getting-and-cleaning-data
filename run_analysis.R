@@ -105,15 +105,48 @@ final_data = merge(full_data, activity_labels, by='activity_id', all.x=TRUE)
 # on the mean and standard deviation for each measurement
 sub_data = final_data[ grepl("subject|activity|mean|std", names(final_data)) ]
 
-# Output tidy data files to CSV files
+# Change column order to make data more readable by the table 'key' fields
+# The 'keys' on this table are the 'subject_id' and the 'activity_id'.
+# We've added the 'activity_type' field with a table JOIN and I now want
+# these three columns in the beginning of the tables
+# Move 'activity_type' to the first column of 'sub_data' table
+sub_data <- setcolorder(sub_data, c("activity_type", setdiff(names(sub_data), "activity_type")))
+# Move 'activity_id' to the first column (now in front of 'activity_type')
+sub_data <- setcolorder(sub_data, c("activity_id", setdiff(names(sub_data), "activity_id")))
+# Move 'subject_id' to the first column (now in front of 'activity_id')
+sub_data <- setcolorder(sub_data, c("subject_id", setdiff(names(sub_data), "subject_id")))
+
+# Sort the view of the 'sub_data' file and order by 'subject_id' and 'activity_id'
+sub_data <- arrange(sub_data, subject_id, activity_id)
+
+# Output full data table for future reference
 write.csv(full_data, file="full_data.csv", row.names=FALSE)
+write.table(full_data, file="full_data.txt", row.names=FALSE)
+
+# Output tidy data files to CSV files
 write.csv(sub_data, file="sub_data.csv", row.names=FALSE)
 
 # Output tidy data files to TXT files (as instructed by professor)
-write.table(full_data, file="full_data.txt", row.names=FALSE)
 write.table(sub_data, file="sub_data.txt", row.names=FALSE)
+
+# The 'dplyr' library is required to execute the final step in this assignment
+# We are being asked to execute the equivalent of a SQL query that obtains the 
+# mean and standard deviation of all of the variables with the data set
+# grouped by 'subject_id' and 'activity_id'.
+test <- require(dplyr)
+if (!test) {
+    install.packages("dplyr")
+    require(dplyr)
+}
+summary_data <- sub_data %>%
+    group_by(subject_id, activity_id, activity_type) %>%
+    summarise_each(funs(mean, sd))
+
+# Now output the summary_data to a CSV file as well as a TEXT file
+write.csv(summary_data, file="summary_data.csv", row.names=FALSE)
+write.table(summary_data, file="summary_data.txt", row.names=FALSE)
 
 # Clear your workspace from active variables
 # This step is optional yet it clears memory intensive information
-#rm(list=ls())
+rm(list=ls())
 
