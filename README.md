@@ -37,13 +37,11 @@ Here is the actual link to the data used for this project:
 
 <https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip>
 
-please note that my *run_analysis.R* program is configured to automatically retrieve this data from this URL, to then unzip this file for use, and to finally process this data in accordance with our stated objectives.
+Please note that my *run_analysis.R* program is configured to automatically retrieve this data from this URL, to then unzip this file for use, and to finally process this data in accordance with our stated objectives.
 
 My R script called 'run_analysis.R' will accomplish the following. 
 
-1a. Download and unzip the required data.  
-
-1b. Assemble the training and the test data sets to create a single data set.
+1. Download and assemble the training and the test data sets to create a single data set.
     
 2. Extract only the measurements on the mean and standard deviation for each measurement. 
 
