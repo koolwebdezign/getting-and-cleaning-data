@@ -10,7 +10,7 @@
 
 <meta name="author" content="KoolWebDezign" />
 
-<meta name="date" content="2015-09-15" />
+<meta name="date" content="2015-09-20" />
 
 <title>README</title>
 
@@ -64,7 +64,7 @@ img {
 <div id="header">
 <h1 class="title">README</h1>
 <h4 class="author"><em>KoolWebDezign</em></h4>
-<h4 class="date"><em>September 15, 2015</em></h4>
+<h4 class="date"><em>September 20, 2015</em></h4>
 </div>
 
 
@@ -78,24 +78,39 @@ img {
 <li><p>this Github repository contains a <em>run_analysis.R</em> script for performing the analysis, and</p></li>
 <li><p>a <em>CodeBook.md</em> file that describes the variables, the data, and any transformations or work that I performed to clean up the data.</p></li>
 </ol>
-<p><strong>DATA SET:</strong></p>
-<p>One of the most exciting areas in all of data science right now is wearable computing - see for example: <a href="http://www.insideactivitytracking.com/data-science-activity-tracking-and-the-battle-for-the-worlds-top-sports-brand/" class="uri">http://www.insideactivitytracking.com/data-science-activity-tracking-and-the-battle-for-the-worlds-top-sports-brand/</a></p>
-<p>Companies like Fitbit, Nike, and Jawbone Up are racing to develop the most advanced algorithms to attract new users. The data linked to from the course website represent data collected from the accelerometers from the Samsung Galaxy S smartphone. A full description is available at the site where the data was obtained: <a href="http://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartphones" class="uri">http://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartphones</a></p>
-<p>Here is the data for this project: <a href="https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip">https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip</a></p>
+<p><strong>DATA SET INFORMATION:</strong></p>
+<p>One of the most exciting areas in all of data science right now is wearable computing - see for example:</p>
+<p><a href="http://www.insideactivitytracking.com/data-science-activity-tracking-and-the-battle-for-the-worlds-top-sports-brand/" class="uri">http://www.insideactivitytracking.com/data-science-activity-tracking-and-the-battle-for-the-worlds-top-sports-brand/</a></p>
+<p>Companies like Fitbit, Nike, and Jawbone Up are racing to develop the most advanced algorithms to attract new users. The data linked to from the course website represent data collected from the accelerometers from the Samsung Galaxy S smartphone. A full description is available at the site where the data was obtained:</p>
+<p><a href="http://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartphones" class="uri">http://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartphones</a></p>
+<p>Here is the data for this project:</p>
+<p><a href="https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip">https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip</a></p>
 <p>My R script called ‘run_analysis.R’ does the following.</p>
-<pre><code>Merges the training and the test sets to create one data set.
-Extracts only the measurements on the mean and standard deviation for each measurement. 
-Uses descriptive activity names to name the activities in the data set
-Appropriately labels the data set with descriptive variable names. 
-
-From the data set in step 4, creates a second, independent tidy data set with the average of each variable for each activity and each subject.</code></pre>
-<p>Good luck!</p>
-<p>This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <a href="http://rmarkdown.rstudio.com" class="uri">http://rmarkdown.rstudio.com</a>.</p>
-<p>When you click the <strong>Knit</strong> button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:</p>
-<pre class="{r}"><code>summary(cars)</code></pre>
-<p>You can also embed plots, for example:</p>
-<p><code>{r, echo=FALSE} plot(cars)</code></p>
-<p>Note that the <code>echo = FALSE</code> parameter was added to the code chunk to prevent printing of the R code that generated the plot.</p>
+<ol style="list-style-type: decimal">
+<li><p>Merges the training and the test sets to create one data set.</p></li>
+<li><p>Extracts only the measurements on the mean and standard deviation for each measurement.</p></li>
+<li><p>Uses descriptive activity names to name the activities in the data set</p></li>
+<li><p>Appropriately labels the data set with descriptive variable names.</p></li>
+<li><p>From the data set in step 4, creates a second, independent tidy data set with the average of each variable for each activity and each subject.</p></li>
+</ol>
+<p><strong>R LIBRARIES DEPLOYED</strong></p>
+<p><em>DOWNLOADER</em> - Downloader was used to programmatically execute the download and unzip activities for the targeted data sets.</p>
+<p><em>DATA.TABLE</em> - ‘data.table’ is a useful library for executing several functions related to the management and arranging of table data.</p>
+<p><em>DPLYR</em> - This exciting library was used to complete Step 5 of the assignment. Step 5 of this assignment asks us to execute the equivalent of a SQL query that selects the ‘mean’ and ‘standard deviation’ values for the given fields which requires the query to sort and group the data results as well. With ‘dplyr’ we are able to ‘Group by’ and ‘summarise’. Excitingly enough, the ‘summarise_each’ function of ‘dplyr’ allows us to programatically instruct R to execute the analysis on all targeted 82 columns and this did require us to hand code the names of the columns.</p>
+<p><strong>CONCLUSIONS</strong></p>
+<p>This is a very standard exercise that simply asks us to take a collection of 8 or 9 tables, assemble them together by rows and columns, add descriptive information to the new table, and to then sort and analize the data in accordance with a prescribed objective.</p>
+<p>In the completion of this project we achieved the following:</p>
+<ol style="list-style-type: decimal">
+<li><p>Download and unzip files</p></li>
+<li><p>Read tables and setting new column names</p></li>
+<li><p>Combined tables by columns and then by rows</p></li>
+<li><p>We used ‘merge’ to execute the equivalent of a LEFT OUTER JOIN. This step added descriptive labels to the activities that were contained within a separate data set.</p></li>
+<li><p>We then sub-setted the data to select targeted columns. We reduced the original table size from 561 data columns to 82.</p></li>
+<li><p>We then changed the column order to move the three ‘key’ fields to the begging columns. I changed the data sets so that ‘subject_id’, ‘activity_id’, and ‘activity_type’ were moved to the first three column positions.</p></li>
+<li><p>Finally, we used dplyr to to execute the final grouping and the summarization of the data that was requested as part of this project.</p></li>
+<li><p>My final “TIDY DATA” set results in a collection of 180 unique observations of the data, nicely sorted with a primary sort on the subject_id and then a secondary sort on the activity_id.</p></li>
+</ol>
+<p>Thank you for reviewing and sharing this work with me!</p>
 
 
 </div>

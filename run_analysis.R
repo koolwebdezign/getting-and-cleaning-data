@@ -27,8 +27,8 @@ if (!file.exists(user_folder)) {
     dir.create(user_folder)
     
     # The 'downloader' library is required for execution of this program
-    test <- require(downloader)
-    if (!test) {
+    test_downloader <- require(downloader)
+    if (!test_downloader) {
         install.packages("downloader")
         require(downloader)
     }
@@ -40,6 +40,13 @@ if (!file.exists(user_folder)) {
     # Unzip the downloaded files
     dir.create(local_folder_name)
     unzip (local_file_name, exdir=local_folder_name)
+}
+
+# The 'data.table' library is required for execution of this program
+test_data_table <- require(data.table)
+if (!test_data_table) {
+    install.packages("data.table")
+    require(data.table)
 }
 
 # Save current working directory for return at end of program
@@ -89,18 +96,6 @@ full_data = rbind(test_data, train_data)
 # to include descriptive activity names (equivalent to LEFT OUTER JOIN)
 final_data = merge(full_data, activity_labels, by='activity_id', all.x=TRUE)
 
-# ** Decided not to use - tough to dynamically get column names if altered **
-# Fix the column names so that they are descriptive and user-friendly
-# The 'data.table' library is required for execution of this program
-#test <- require(data.table)
-#if (!test) {
-#  install.packages("data.table")
-#  require(data.table)
-#}
-#names <- names(final_data)
-#names <- gsub('[()]', '', names) # Remove the parenthesis and dashes
-#setnames(final_data, names)
-
 # Extract sub-set of data such that we extract only the measurements
 # on the mean and standard deviation for each measurement
 sub_data = final_data[ grepl("subject|activity|mean|std", names(final_data)) ]
@@ -133,8 +128,8 @@ write.table(sub_data, file="sub_data.txt", row.names=FALSE)
 # We are being asked to execute the equivalent of a SQL query that obtains the 
 # mean and standard deviation of all of the variables with the data set
 # grouped by 'subject_id' and 'activity_id'.
-test <- require(dplyr)
-if (!test) {
+test_dplyr <- require(dplyr)
+if (!test_dplyr) {
     install.packages("dplyr")
     require(dplyr)
 }
